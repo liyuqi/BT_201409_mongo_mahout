@@ -30,25 +30,6 @@ public class mongoTest {
 		DataModel dbmodel = new MongoDBDataModel("localhost", 27017,
 				"test", "items", true, true, null);//,"user_id","item_id","preference");
 		
-		//DataModel dbmodel = new MongoDBDataModel("localhost", 27017,
-		//		"test", "log", true, true, null,"host","level");
-		//DataModel dbmodel4 = new MongoDBDataModel("localhost", 27017,
-		//		"test", "ratings", true, true, null,"user_id","item_id","preference");
-		
-		/*
-		System.out.println();
-		LongPrimitiveIterator users = dbmodel.getUserIDs();
-		while (users.hasNext()) {
-			 long userId = users.nextLong();
-			 System.out.println(userId);
-			 LongPrimitiveIterator items = dbmodel.getItemIDs();
-			 while ( items.hasNext()) {
-				long itemId = items.nextLong();
-				 //System.out.println(itemId);
-				System.out.println(itemId+":"+svd.estimatePreference(userId, itemId));
-			}
-		}
-		*/
 		//Recommender r2 = new 
 		System.out.println("EuclideanDistanceSimilarity");
 	    final int NEIGHBORHOOD_NUM = 2;
@@ -80,6 +61,19 @@ public class mongoTest {
             }
             System.out.println();
         }
+        
+        System.out.println("SVDRecommender_item");
+		LongPrimitiveIterator users = dbmodel.getUserIDs();
+		while (users.hasNext()) {
+			 long userId = users.nextLong();
+			 System.out.println(userId);
+			 LongPrimitiveIterator items = dbmodel.getItemIDs();
+			 while ( items.hasNext()) {
+				long itemId = items.nextLong();
+				 //System.out.println(itemId);
+				System.out.println(itemId+":"+svd.estimatePreference(userId, itemId));
+			}
+		}
         
         System.out.println("PearsonCorrelationSimilarity");
 		ItemSimilarity similarity = new PearsonCorrelationSimilarity(dbmodel);// 计算内容相似度
